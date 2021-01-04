@@ -27,6 +27,7 @@ import Storage from "./Storage";
 import Window from "./Window";
 import { get_config } from "./config";
 import { dom, tipoftheday, status, toggle_fullscreen } from "./helper";
+import ToolWindow from "../vendor/toolwindow";
 
 class App {
   storage: any = {};
@@ -64,6 +65,46 @@ class App {
     this.config.colors = this.config.palettes[this.config.selected_palette];
 
     this.sprite = new Sprite(this.config);
+
+    /*
+    let mededitor = new ToolWindow({
+      top: 120,
+      left: 120,
+      width: 420,
+      height: 360,
+      closeButtonText: "\u2716",
+      placement: "inside,auto",
+      relativeToElement: "body",
+      fixedSize: false,
+      animated: true,
+      hideCloseButton: true,
+      animationTime: 1000,
+      content: {
+        type: "html",
+        value: "<b>Hello Edit</b>",
+      },
+      title: "Editor",
+      buttons: [
+        {
+          text: "Dismiss",
+          clicked: function () {
+            this.hide();
+          },
+        },
+        {
+          text: "Refresh",
+          clicked: function () {
+            this.title = "New title of demo window";
+            this.content = {
+              type: "html",
+              value: "<hr/>This is html<hr/>",
+            };
+            this.refresh();
+          },
+        },
+      ],
+    });
+    */
 
     // editor
     let editor_config = {
