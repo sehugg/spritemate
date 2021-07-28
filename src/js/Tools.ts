@@ -7,11 +7,11 @@ export default class Tools {
 
     const template = `
     <div id="menu">
-      <div class ="iconset icon-hover" id="icon-load">
+      <div class ="iconset icon-hover" id="icon-load" style="display:none">
             <img src="img/ui/icon-load.png" class="icon" title="load">
             <div class="icontext">load</div>
         </div>
-        <div class ="iconset icon-hover" id="icon-save">
+        <div class ="iconset icon-hover" id="icon-save" style="display:none">
             <img src="img/ui/icon-save.png" class="icon" title="save">
             <div class="icontext">save</div>
         </div>

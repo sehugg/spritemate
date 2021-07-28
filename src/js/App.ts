@@ -28,24 +28,24 @@ import { dom, tipoftheday, status, toggle_fullscreen } from "./helper";
 class App {
   storage: any = {};
   sprite: any = {};
-  editor: any;
+  editor: Editor;
   window_editor: any;
   window_palette: any;
-  palette: any;
+  palette: Palette;
   window_preview: any;
-  preview: any;
+  preview: Preview;
   window_list: any;
-  list: any;
+  list: List;
   window_about: any;
   about: any;
   window_save: any;
-  save: any;
+  save: Save;
   window_settings: any;
-  settings: any;
+  settings: Settings;
   window_tools: any;
   window_help: any;
-  tools: any;
-  load: any;
+  tools: Tools;
+  load: Load;
   is_drawing: boolean;
   oldpos: any;
   mode: any;
@@ -1243,5 +1243,27 @@ LLLLLLLLLLLLLLLLLLLLLLLL   IIIIIIIIII    SSSSSSSSSSSSSSS            TTTTTTTTTTT
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  new App(get_config());
+  let app = new App(get_config());
+  window['loadSPDFile'] = function(spd: number[]) {
+    // saving SPD creates a byte array, but loading SPD needs a string ... ?
+    let s = '';
+    for (var i=0; i<spd.length; i++)
+      s += String.fromCharCode(spd[i]);
+    app.load.parse_file_spd(s);
+    console.log("load", s.length);
+  }
+  window['saveSPDFile'] = function() : number[] {
+    app.save.set_save_data(app.sprite.get_all());
+    var result = app.save.create_spd_array("new");
+    return result;
+  }
+  window['loadSPMFile'] = function(path: string, data: string) {
+    let file = new File([data], path, {type: "text/json"});
+    app.load.read_file_data({files: [file]});
+  }
+  window['saveSPMFile'] = function() : string {
+    app.save.set_save_data(app.sprite.get_all());
+    return JSON.stringify(app.save.savedata);
+  }
 });
+
